@@ -174,10 +174,9 @@ jobs:
 
         # Remove conflicting brew items
         # GitHub Actions likes to randomly change their package list, so assume that if any of these fail, it was never installed and won't cause any problems
-        brew remove --ignore-dependencies freetype || true
-        brew remove --ignore-dependencies harfbuzz || true
-        brew remove --ignore-dependencies libpng || true
-        brew remove --ignore-dependencies brotli || true
+        for package in freetype harfbuzz libpng brotli; do
+          brew remove --ignore-dependencies "$package" || true
+        done
 
     - name: 'Generate i18n'
       run: |
